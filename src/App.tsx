@@ -21,17 +21,6 @@ function App() {
     {},
   ];
 
-  let defaultState: Array<{ [key: string]: [number, number] }> = [
-    //Bottom
-    {
-      //Structure is "x-y": ["tileset_x", "tileset_y"]
-      //EXAMPLE: "1-1": [3, 4],
-    },
-    //Middle
-    {},
-    //Top
-  ];
-
   const [tilesetImageLoaded, setTilesetImageLoaded] = useState(false);
 
   useEffect(() => {
@@ -52,7 +41,7 @@ function App() {
         setLayer(0);
       };
     }
-  }, [draw, setLayer, tilesetImage, tilesetImageLoaded]);
+  }, [tilesetImageLoaded]);
 
   //Select tile from the Tiles grid
   tilesetContainer?.addEventListener("mousedown", (event) => {
