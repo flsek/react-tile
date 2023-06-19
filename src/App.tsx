@@ -154,9 +154,7 @@ function App() {
       });
     }
   }
-
-  //Default image for booting up -> Just looks nicer than loading empty canvas
-
+  
   return (
     <div className="card">
       <header>
