@@ -111,18 +111,21 @@ function App() {
   function setLayer(newLayer: number) {
     // 레이어 업데이트
     currentLayer = newLayer;
-
+  
     // 업데이트된 레이어를 UI에 표시
-    let oldActiveLayer = document.querySelector(".layer.active");
-    if (oldActiveLayer) {
-      oldActiveLayer.classList.remove("active");
+    const activeLayers = document.querySelectorAll(".layer-button.active");
+    activeLayers.forEach((layer) => {
+      layer.classList.remove("active");
+    });
+  
+    const newActiveLayer = document.querySelector(
+      `[tile-layer="${currentLayer}"]`
+    ) as HTMLButtonElement;
+    if (newActiveLayer) {
+      newActiveLayer.classList.add("active");
     }
-    (
-      document.querySelector(
-        `[tile-layer="${currentLayer}"]`
-      ) as HTMLButtonElement
-    )?.classList.add("active");
   }
+  
 
   function draw() {
     let ctx = canvas?.getContext("2d");
@@ -158,19 +161,19 @@ function App() {
   return (
     <div className="card">
       <header>
-        <h1>Tile Map Editor</h1>
+        <h1>맵 에디터</h1>
         <div>
           <button className="button-as-link" onClick={clearCanvas}>
-            Clear Canvas
+            다시하기
           </button>
           <button className="primary-button" onClick={exportImage}>
-            Export Image
+            미리보기
           </button>
         </div>
       </header>
       <div className="card_body">
         <aside>
-          <label>Tiles</label>
+          <label>타일셋</label>
           <div className="tileset-container">
             <img id="tileset-source" crossOrigin="anonymous" alt="타일셋" />
             <div className="tileset-container_selection"></div>
@@ -179,37 +182,37 @@ function App() {
         <div className="card_right-column">
           <canvas width={480} height={480} />
           <p className="instructions">
-            <strong>Click</strong> to paint.
-            <strong>Shift+Click</strong> to remove.
+            <strong>Click</strong> 그리기.
+            <strong>Shift+Click</strong> 지우기.
           </p>
           <div>
             <label>Editing Layer: </label>
             <ul className="layers">
               <li>
                 <button
-                  className="layer"
+                  className="layer-button"
                   tile-layer="2"
                   onClick={() => setLayer(2)}
                 >
-                  Top Layer
+                  상위 레이어
                 </button>
               </li>
               <li>
                 <button
-                  className="layer"
+                  className="layer-button"
                   tile-layer="1"
                   onClick={() => setLayer(1)}
                 >
-                  Middle Layer
+                  중간 레이어
                 </button>
               </li>
               <li>
                 <button
-                  className="layer"
+                  className="layer-button"
                   tile-layer="0"
                   onClick={() => setLayer(0)}
                 >
-                  Bottom Layer
+                  레이어
                 </button>
               </li>
             </ul>
