@@ -11,12 +11,14 @@ function App() {
     ".tileset-container_selection"
   ) as HTMLDivElement;
 
-  let selection: [number, number] = [0, 0]; //Which tile we will paint from the menu
-
+  // 타일셋에서 선택한 타일의 좌표
+  let selection: [number, number] = [0, 0]; 
   let isMouseDown = false;
   let currentLayer = 0;
+
+  // 레이어들을 빈 객체로 초기화
   let layers: { [key: string]: [number, number] }[] = [
-    {}, // Initialize the first layer as an empty object
+    {}, 
     {},
     {},
   ];
@@ -43,14 +45,14 @@ function App() {
     }
   }, [tilesetImageLoaded]);
 
-  //Select tile from the Tiles grid
+  // 타일 그리드에서 타일 선택
   tilesetContainer?.addEventListener("mousedown", (event) => {
     selection = getCoords(event);
     tilesetSelection.style.left = selection[0] * 32 + "px";
     tilesetSelection.style.top = selection[1] * 32 + "px";
   });
 
-  //Handler for placing new tiles on the map
+  // 맵에 새로운 타일 추가하는 핸들러
   function addTile(mouseEvent: MouseEvent) {
     const clicked = getCoords(mouseEvent);
     const key = `${clicked[0]}-${clicked[1]}`;
@@ -63,7 +65,7 @@ function App() {
     draw();
   }
 
-  //Bind mouse events for painting (or removing) tiles on click/drag
+  // 클릭/드래그로 타일을 그리거나 제것하는 마우스 이벤트 바인딩
   canvas?.addEventListener("mousedown", () => {
     isMouseDown = true;
   });
@@ -80,7 +82,7 @@ function App() {
     }
   });
 
-  //Utility for getting coordinates of mouse click
+  // 마우스 클릭 위치의 좌표를 가져오는 유틸리티 함수
   function getCoords(e: MouseEvent): [number, number] {
     let { x, y } = (e.target as HTMLElement).getBoundingClientRect();
     let mouseX = e.clientX - x;
@@ -88,7 +90,7 @@ function App() {
     return [Math.floor(mouseX / 32), Math.floor(mouseY / 32)];
   }
 
-  //converts data to image:data string and pipes into new browser tab
+  // 데이터를 이미지 데이터 URL로 변환하여 새 브라우저 탭에 표시
   function exportImage() {
     let data = canvas.toDataURL();
     let image = new Image();
@@ -98,7 +100,7 @@ function App() {
     w?.document.write(image.outerHTML);
   }
 
-  // Reset state to empty
+  // 상태를 초기화하여 빈 상태로 되돌리기
   function clearCanvas() {
     layers[0] = {};
     layers[1] = {};
@@ -107,10 +109,10 @@ function App() {
   }
 
   function setLayer(newLayer: number) {
-    // Update the layer
+    // 레이어 업데이트
     currentLayer = newLayer;
 
-    // Update the UI to show updated layer
+    // 업데이트된 레이어를 UI에 표시
     let oldActiveLayer = document.querySelector(".layer.active");
     if (oldActiveLayer) {
       oldActiveLayer.classList.remove("active");
@@ -132,7 +134,7 @@ function App() {
 
       layers.forEach((layer) => {
         Object.keys(layer).forEach((key) => {
-          //Determine x/y position of this placement from key ("3-4" -> x=3, y=4)
+          // key에서 x, y 위치 설정 ("3-4" -> x=3, y=4)
           let positionX = Number(key.split("-")[0]);
           let positionY = Number(key.split("-")[1]);
           let [tilesheetX, tilesheetY] = layer[key];
