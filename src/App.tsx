@@ -1,5 +1,8 @@
 import { useEffect, useMemo, useState } from "react";
 import "./App.css";
+import HeaderDialog from "./components/HeaderDialog";
+import TilesetDialog from "./components/TilesetDialog";
+import CanvasDialog from "./components/CanvasDialog";
 
 function App() {
   const tilesetImage = useMemo(() => new Image(), []);
@@ -160,27 +163,14 @@ function App() {
   
   return (
     <div className="card">
-      <header>
-        <h1>맵 에디터</h1>
-        <div>
-          <button className="button-as-link" onClick={clearCanvas}>
-            다시하기
-          </button>
-          <button className="primary-button" onClick={exportImage}>
-            미리보기
-          </button>
-        </div>
-      </header>
+      <HeaderDialog clearCanvas={clearCanvas} exportImage={exportImage}/>
       <div className="card_body">
-        <aside>
-          <label>타일셋</label>
-          <div className="tileset-container">
-            <img id="tileset-source" crossOrigin="anonymous" alt="타일셋" />
-            <div className="tileset-container_selection"></div>
-          </div>
-        </aside>
+        <TilesetDialog 
+          tilesetImage={tilesetImage}
+          setLayer={setLayer}
+        />
         <div className="card_right-column">
-          <canvas width={480} height={480} />
+          <CanvasDialog tilesetImage={tilesetImage}/>
           <p className="instructions">
             <strong>Click</strong> 그리기.
             <strong>Shift+Click</strong> 지우기.
