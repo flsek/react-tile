@@ -10,10 +10,10 @@ export default function CanvasDialog({
     setLayer: (layer: number) => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
-  let [isMouseDown, setIsMouseDown] = useState(false);
-  const [layers, setLayers] = useState<Layer[]>([{}, {}, {}]);
-  const [currentLayer, setCurrentLayer] = useState<number>(0);
-  const [selection, setSelection] = useState<[number, number]>([0, 0]);
+  let [isMouseDown] = useState(false);
+  const [layers] = useState<Layer[]>([{}, {}, {}]);
+  const [currentLayer] = useState<number>(0);
+  const [selection] = useState<[number, number]>([0, 0]);
 
   useEffect(() => {
     const canvas = canvasRef.current;
