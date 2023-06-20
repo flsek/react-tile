@@ -170,43 +170,7 @@ function App() {
           setLayer={setLayer}
         />
         <div className="card_right-column">
-          <CanvasDialog tilesetImage={tilesetImage}/>
-          <p className="instructions">
-            <strong>Click</strong> 그리기.
-            <strong>Shift+Click</strong> 지우기.
-          </p>
-          <div>
-            <label>Editing Layer: </label>
-            <ul className="layers">
-              <li>
-                <button
-                  className="layer-button"
-                  tile-layer="2"
-                  onClick={() => setLayer(2)}
-                >
-                  상위 레이어
-                </button>
-              </li>
-              <li>
-                <button
-                  className="layer-button"
-                  tile-layer="1"
-                  onClick={() => setLayer(1)}
-                >
-                  중간 레이어
-                </button>
-              </li>
-              <li>
-                <button
-                  className="layer-button"
-                  tile-layer="0"
-                  onClick={() => setLayer(0)}
-                >
-                  레이어
-                </button>
-              </li>
-            </ul>
-          </div>
+          <CanvasDialog tilesetImage={tilesetImage} setLayer={setLayer}/>
         </div>
       </div>
     </div>

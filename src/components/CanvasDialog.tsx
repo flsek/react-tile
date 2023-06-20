@@ -4,8 +4,10 @@ type Layer = { [key: string]: [number, number] };
 
 export default function CanvasDialog({
   tilesetImage,
+  setLayer,
 }: {
   tilesetImage: HTMLImageElement;
+    setLayer: (layer: number) => void;
 }) {
   const canvasRef = useRef<HTMLCanvasElement>(null);
   let [isMouseDown, setIsMouseDown] = useState(false);
@@ -86,5 +88,45 @@ export default function CanvasDialog({
     }
   };
 
-  return <canvas ref={canvasRef} width={480} height={480} />;
+  return (
+    <>
+      <canvas ref={canvasRef} width={480} height={480} />
+      <p className="instructions">
+            <strong>Click</strong> 그리기.
+            <strong>Shift+Click</strong> 지우기.
+          </p>
+          <div>
+            <label>Editing Layer: </label>
+            <ul className="layers">
+              <li>
+                <button
+                  className="layer-button"
+                  tile-layer="2"
+                  onClick={() => setLayer(2)}
+                >
+                  상위 레이어
+                </button>
+              </li>
+              <li>
+                <button
+                  className="layer-button"
+                  tile-layer="1"
+                  onClick={() => setLayer(1)}
+                >
+                  중간 레이어
+                </button>
+              </li>
+              <li>
+                <button
+                  className="layer-button"
+                  tile-layer="0"
+                  onClick={() => setLayer(0)}
+                >
+                  레이어
+                </button>
+              </li>
+            </ul>
+          </div>
+    </>
+  );
 }
